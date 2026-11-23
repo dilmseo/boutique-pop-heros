@@ -65,8 +65,12 @@ function page({ titre, description, chemin, contenu, jsonld = [], image, type = 
 <meta property="og:title" content="${echap(titre)}">
 <meta property="og:description" content="${echap(description)}">
 <meta property="og:url" content="${url}">
-${image ? `<meta property="og:image" content="${SITE}${image}">` : ''}
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+<meta property="og:image" content="${SITE}${image || '/og-image.png'}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#140b2e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">

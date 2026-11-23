@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Magique Boutique">
+<defs>
+<linearGradient id="mb-f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".55" stop-color="#8b5cf6"/><stop offset="1" stop-color="#3fb8ff"/></linearGradient>
+<linearGradient id="mb-e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6b8"/><stop offset="1" stop-color="#ffb300"/></linearGradient>
+<radialGradient id="mb-h" cx=".3" cy=".2" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="64" height="64" rx="18" fill="url(#mb-f)"/>
+<rect width="64" height="64" rx="18" fill="url(#mb-h)"/>
+<path d="M31.00,14.00 L36.53,27.40 L50.97,28.51 L39.94,37.90 L43.34,51.99 L31.00,44.40 L18.66,51.99 L22.06,37.90 L11.03,28.51 L25.47,27.40 Z" fill="url(#mb-e)" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+<circle cx="26.6" cy="34" r="2" fill="#3a1670"/><circle cx="35.4" cy="34" r="2" fill="#3a1670"/>
+<path d="M27 38.6 Q31 42.2 35 38.6" fill="none" stroke="#3a1670" stroke-width="2" stroke-linecap="round"/>
+<path d="M52,6.5 C53.17,11.83 53.17,11.83 58.5,13 C53.17,14.17 53.17,14.17 52,19.5 C50.83,14.17 50.83,14.17 45.5,13 C50.83,11.83 50.83,11.83 52,6.5 Z" fill="#fff"/>
+<path d="M12,48.8 C12.756,52.244 12.756,52.244 16.2,53 C12.756,53.756 12.756,53.756 12,57.2 C11.244,53.756 11.244,53.756 7.8,53 C11.244,52.244 11.244,52.244 12,48.8 Z" fill="#fff" opacity=".9"/>
+</svg>
