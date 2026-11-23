@@ -484,3 +484,10 @@ select:focus,input:focus,textarea:focus{outline:2px solid var(--rose);border-col
 .entete.compact .logo-mark{width:34px;height:34px}
 .pied .logo-mark{width:52px;height:52px;border-radius:15px}
 @media (max-width:600px){.logo-mark{width:34px;height:34px}}
+@media (min-width:901px) and (max-width:1180px){
+  .menu a i{display:none}
+  .menu a{padding:9px 13px}
+  .btn-panier .lbl{display:none}
+  .btn-panier{padding:0 15px}
+  .entete{gap:12px}
+}
