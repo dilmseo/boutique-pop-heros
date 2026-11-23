@@ -75,8 +75,25 @@
     }
   }
 
+  // iPhone : sans ça, l'interrupteur « silencieux » coupe le Web Audio. Un <audio> muet en boucle + audioSession
+  // fait passer Safari en mode « lecture média », comme une vidéo.
+  let muet = null;
+  function deverrouillerIOS() {
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+    if (!muet) {
+      const n = 4000, b = new Uint8Array(44 + n), v = new DataView(b.buffer), s = (o, x) => [...x].forEach((c, i) => b[o + i] = c.charCodeAt(0));
+      s(0, 'RIFF'); v.setUint32(4, 36 + n, true); s(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+      v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); s(36, 'data'); v.setUint32(40, n, true);
+      b.fill(128, 44);
+      muet = new Audio(URL.createObjectURL(new Blob([b], { type: 'audio/wav' })));
+      muet.loop = true; muet.setAttribute('playsinline', '');
+    }
+    const pr = muet.play(); if (pr && pr.catch) pr.catch(() => {});
+  }
+
   function jouer() {
     if (!ctx) init();
+    deverrouillerIOS();
     ctx.resume();
     if (!enCours) {
       enCours = true; prochain = ctx.currentTime + 0.1;
@@ -94,6 +111,7 @@
       maitre.gain.setValueAtTime(maitre.gain.value, ctx.currentTime);
       maitre.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.6);
     }
+    if (muet) muet.pause();
     maj(false);
   }
   function maj(on) {
@@ -109,20 +127,23 @@
   });
 
   // démarrage au premier geste du visiteur (sauf s'il a coupé la musique auparavant)
+  // on réessaie à chaque geste tant que le son n'est pas réellement lancé (Safari iOS n'accepte que touchend/click)
+  const GESTES = ['pointerdown', 'touchend', 'click', 'keydown'];
   const premier = e => {
-    ['pointerdown', 'keydown', 'touchend'].forEach(t => removeEventListener(t, premier, true));
     if (e.target.closest && e.target.closest('#btn-musique')) return; // le bouton gère lui-même
-    if (lire() !== 'off') jouer();
+    if (lire() === 'off') { GESTES.forEach(t => removeEventListener(t, premier, true)); return; }
+    if (!enCours) jouer(); else { deverrouillerIOS(); ctx.resume(); }
+    if (ctx && ctx.state === 'running') GESTES.forEach(t => removeEventListener(t, premier, true));
   };
   maj(false);
   if (lire() !== 'off') {
     btn.classList.add('attente');
-    ['pointerdown', 'keydown', 'touchend'].forEach(t => addEventListener(t, premier, true));
+    GESTES.forEach(t => addEventListener(t, premier, true));
     // visiteur qui avait laissé la musique : on tente de reprendre tout de suite (le navigateur l'autorise souvent après une 1re visite)
     if (lire() === 'on') {
       try {
         init();
-        ctx.resume().then(() => { if (ctx.state === 'running') { ['pointerdown', 'keydown', 'touchend'].forEach(t => removeEventListener(t, premier, true)); jouer(); } });
+        ctx.resume().then(() => { if (ctx.state === 'running') { GESTES.forEach(t => removeEventListener(t, premier, true)); jouer(); } });
       } catch (e) {}
     }
   }
@@ -132,6 +153,6 @@
   // silence quand l'onglet est caché
   document.addEventListener('visibilitychange', () => {
     if (!ctx || !enCours) return;
-    if (document.hidden) ctx.suspend(); else ctx.resume();
+    if (document.hidden) { ctx.suspend(); if (muet) muet.pause(); } else { ctx.resume(); deverrouillerIOS(); }
   });
 })();
