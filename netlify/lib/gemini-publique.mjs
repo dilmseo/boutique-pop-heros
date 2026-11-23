@@ -1,0 +1,12 @@
+// Clé PUBLIQUE RSA : l'espace chiffre la clé Gemini avec elle. La clé privée n'existe que dans le secret GitHub GEMINI_CLE_PRIVEE.
+export const PEM = `-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEApeUiRGyPFCPbGvsa9Xg0
+kbIe8t8ptK7MNPIDXAD8hbhMW0r+Ih4ynt0pGJM/3D6LcVuOQTBl2Mkn5JLgB3Dc
+/b/YwET604TJTR8lYdxvIoLzQUBG6SFUunlESNekXlpeb7tXkQZVtwM8BKDbIiRs
+gSXAic9ZqsYDTs5q9aSeH2SHtUqd5scQMwFsD7hGzTvD3pGnAsA6TtZ4gZpdoj7O
+2qkS+LPTRsMMtayBiCKzVGEQkJN0PJUNRDngvmiAJXJiAT/5wImRHUk/BvjwC7WJ
+BcIeWFKAMn2VnSGUc3bPf7buQI5vLNx7NJmnSvFrPxi8kvuAJEHutbPuwEe0btcd
++BQI3UhLcTSkfhrXTLi4I250Zlz3XcOr2IXNVFBdUFVcXiIpGurhEdvqjhJaxIzQ
+SSD+7I2yKNfslHXqbyHagwdCNw7IlkLl5pglPOtW+1zsdob/qBV73KVxfiASszXl
+OvempPD8EiZVsSzVJUCMMtkJZsJ5OV5thbMCTsjaT5kZAgMBAAE=
+-----END PUBLIC KEY-----`;

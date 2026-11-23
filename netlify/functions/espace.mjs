@@ -2,6 +2,7 @@
 import { getStore } from '@netlify/blobs';
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { ecrireCle, retirerCle, lireCle, infoStripe, stripe, verifierSession } from '../lib/stripe.mjs';
+import { verifierCleGemini, ecrireCleGemini, retirerCleGemini, infoGemini } from '../lib/gemini.mjs';
 
 const STATUTS = ['nouvelle', 'confirmée', 'expédiée', 'livrée', 'annulée'];
 const ETAPES = ['stripe', 'stripe_active', 'produits', 'domaine'];
@@ -59,6 +60,17 @@ export default async (req) => {
       return json({ ok: true, stripe: info });
     }
     if (b.action === 'stripe_retirer') { await retirerCle(); return json({ ok: true, stripe: { actif: false } }); }
+    if (b.action === 'gemini') {
+      const cle = String(b.cle || '').trim();
+      if (!/^(AIza[0-9A-Za-z_-]{30,}|AQ\.[0-9A-Za-z_.-]{20,})$/.test(cle)) return json({ erreur: 'Ce n\'est pas une clé Gemini : elle commence par AIza… (copiez-la en entier depuis Google AI Studio).' }, 400);
+      try { await verifierCleGemini(cle); }
+      catch (e) {
+        return json({ erreur: [400, 401, 403].includes(e.status) ? 'Google refuse cette clé : vérifiez que vous l\'avez copiée en entier.'
+          : 'Google ne répond pas, réessayez dans un instant.' }, 400);
+      }
+      return json({ ok: true, gemini: await ecrireCleGemini(cle) });
+    }
+    if (b.action === 'gemini_retirer') { await retirerCleGemini(); return json({ ok: true }); }
     return json({ erreur: 'Action inconnue' }, 400);
   }
 
@@ -89,6 +101,7 @@ export default async (req) => {
     },
     etapes: (await reglages.get('etapes', { type: 'json' })) || {},
     stripe: { actif: !!info.actif, mode: info.mode, date: info.date, fin: info.fin },
+    gemini: await infoGemini(),
   });
 };
 

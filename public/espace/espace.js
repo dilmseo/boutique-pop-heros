@@ -75,6 +75,7 @@ function rendre() {
     <li><label><input type="checkbox" data-etape="${k}"${etapes[k] ? ' checked' : ''}><span>${t}</span></label></li>`).join('');
 
   rendreStripe(donnees.stripe || {});
+  rendreGemini(donnees.gemini || {});
   $('#mes-produits').innerHTML = PRODUITS.map(p => `
     <li><img src="/img/${p.imgs[0]}.webp" alt=""><span>${echap(p.nom)}</span><b>${euros(p.prix)}</b></li>`).join('');
 }
@@ -108,6 +109,50 @@ function rendreStripe(s) {
     </form>
     <p class="mini">🔒 La clé est vérifiée auprès de Stripe puis enregistrée chiffrée. Ne l'envoyez jamais par mail.</p>`;
 }
+
+function rendreGemini(g) {
+  const b = g.blog;
+  const dernier = b && b.titre ? `<p class="mini">Dernier article : <a href="/blog/${echap(b.slug)}/" target="_blank" rel="noopener"><b>${echap(b.titre)}</b></a> · ${new Date(b.date).toLocaleDateString('fr-FR')}</p>` : '';
+  const souci = b && b.erreur ? `<p class="erreur">⚠️ Dernier essai (${new Date(b.essai).toLocaleDateString('fr-FR')}) : ${echap(b.erreur)}</p>` : '';
+  $('#bloc-gemini').innerHTML = g.actif ? `
+    <div class="stripe-ok"><b>✅ Rédaction automatique activée</b>
+      <p>Chaque matin vers 6 h, un nouvel article de conseils est écrit avec votre clé Gemini et publié sur le blog de la boutique, avec vos produits.</p>
+      ${dernier}${souci}
+      <p class="mini">Clé se terminant par …${echap(g.fin)} · branchée le ${new Date(g.date).toLocaleDateString('fr-FR')}</p>
+      <button class="lien suppr" id="gemini-retirer">Arrêter la rédaction automatique</button></div>` : `
+    <p class="doux">Un article de conseils publié chaque matin sur votre blog, pour être mieux trouvé sur Google. Il suffit d'une clé Gemini, <b>gratuite</b>, que vous créez avec votre compte Google (2 minutes).</p>
+    <ol class="pas">
+      <li>Ouvrez <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener"><b>aistudio.google.com/apikey</b></a> et connectez-vous avec votre compte Google (Gmail).</li>
+      <li>Acceptez les conditions si on vous les demande, puis cliquez sur <b>« Créer une clé API »</b> (ou « Create API key »).</li>
+      <li>Si on vous demande un projet, choisissez celui proposé ou créez-en un nommé « Magique Boutique ». <b>N'activez pas la facturation</b> : la version gratuite suffit largement.</li>
+      <li>Copiez la clé (elle commence par <code>AIza</code>) et collez-la ici :</li>
+    </ol>
+    <form id="form-gemini" class="form-stripe">
+      <input id="cle-gemini" placeholder="AIza…" autocomplete="off" spellcheck="false" required>
+      <button class="btn btn-plein large" type="submit">Activer le blog automatique</button>
+      <p class="erreur" id="gemini-erreur" hidden></p>
+    </form>
+    <p class="mini">🔒 La clé est vérifiée auprès de Google puis enregistrée chiffrée. Ne l'envoyez jamais par mail.</p>`;
+}
+
+document.addEventListener('submit', async e => {
+  if (e.target.id !== 'form-gemini') return;
+  e.preventDefault();
+  const btn = e.target.querySelector('button'), err = $('#gemini-erreur');
+  btn.disabled = true; btn.textContent = 'Vérification…'; err.hidden = true;
+  try {
+    const r = await fetch('/api/espace', { method: 'POST', headers: { 'x-mdp': mdp, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'gemini', cle: $('#cle-gemini').value }) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.erreur || 'Erreur');
+    donnees = await api(); rendre();
+    $('#gemini').scrollIntoView({ behavior: 'smooth' });
+  } catch (x) { err.textContent = x.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Activer le blog automatique'; }
+});
+document.addEventListener('click', e => {
+  if (e.target.id === 'gemini-retirer' && confirm('Arrêter la rédaction automatique des articles ?'))
+    api({ action: 'gemini_retirer' }).then(charger).catch(() => alert('Impossible, réessayez.'));
+});
 
 document.addEventListener('submit', async e => {
   if (e.target.id !== 'form-stripe') return;
