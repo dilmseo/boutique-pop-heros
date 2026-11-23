@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pop Héros — Jouets, déco et accessoires de vos héros préférés</title>
+<meta name="description" content="Guitare lumineuse K-Pop, KPop Demon Hunters, Stitch, Spider-Man, Haribo : jouets, vêtements enfant, déco de chambre et accessoires pour chien. Livraison offerte dès 49 €.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="annonce">✨ Livraison offerte dès 49 € d'achat · Idées cadeaux de Noël 🎄</div>
+
+<header class="entete">
+  <a href="/" class="logo"><span class="logo-etoile">★</span>Pop<em>Héros</em></a>
+  <nav class="menu">
+    <a href="#boutique">Boutique</a>
+    <a href="#univers">Univers</a>
+    <a href="#infos">Livraison</a>
+  </nav>
+  <button class="btn-panier" id="btn-panier" aria-label="Ouvrir le panier">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span id="compteur" hidden>0</span>
+  </button>
+</header>
+
+<section class="heros">
+  <div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+  <div class="etoiles" aria-hidden="true">✦ ✧ ✦ ✧ ✦</div>
+  <div class="heros-texte">
+    <span class="sur-titre">Nouvelle collection</span>
+    <h1>Les héros de vos enfants,<br><span class="neon">à la maison.</span></h1>
+    <p>Guitare lumineuse K-Pop, univers <b>KPop Demon Hunters</b>, <b>Stitch</b>, <b>Spider-Man</b>… Jouets, vêtements, déco de chambre et même accessoires pour le chien.</p>
+    <div class="heros-btns">
+      <a href="#boutique" class="btn btn-plein">Découvrir la boutique</a>
+      <a href="#univers" class="btn btn-contour">Voir les univers</a>
+    </div>
+    <ul class="atouts">
+      <li>🚚 Offerte dès 49 €</li><li>🎁 Emballage cadeau</li><li>↩️ Retour 14 jours</li>
+    </ul>
+  </div>
+  <div class="heros-visuel">
+    <div class="disque"></div>
+    <img class="v-principal" src="img/guitare-1.webp" alt="Guitare électrique lumineuse K-Pop Girls">
+    <img class="v-flottant f1" src="img/lampe-tigre.webp" alt="">
+    <img class="v-flottant f2" src="img/harnais-stitch-1.webp" alt="">
+    <div class="etiquette">Guitare lumineuse<b>24,90 €</b></div>
+  </div>
+</section>
+
+<section class="univers" id="univers">
+  <h2 class="titre">Choisissez votre univers</h2>
+  <div class="univers-grille">
+    <button class="univ u-kpop" data-rayon="Jouets"><img src="img/guitare-3.webp" alt=""><span>K-Pop & jouets</span></button>
+    <button class="univ u-deco" data-rayon="Déco chambre"><img src="img/plaid-kpop.webp" alt=""><span>Déco chambre</span></button>
+    <button class="univ u-vet" data-rayon="Vêtements"><img src="img/jogging-bebe-stitch.webp" alt=""><span>Vêtements</span></button>
+    <button class="univ u-ani" data-rayon="Animaux"><img src="img/collier-stitch-3.webp" alt=""><span>Pour le chien</span></button>
+  </div>
+</section>
+
+<section class="boutique" id="boutique">
+  <div class="boutique-tete">
+    <h2 class="titre">Tous nos produits</h2>
+    <div class="filtres" id="filtres"></div>
+  </div>
+  <div class="grille" id="grille"></div>
+</section>
+
+<section class="bandeau">
+  <div class="halo h2"></div>
+  <h2>Une idée cadeau pour Noël ?</h2>
+  <p>Commandez en quelques clics : nous vous recontactons pour confirmer la commande et la livraison.</p>
+  <a href="#boutique" class="btn btn-plein">J'en profite</a>
+</section>
+
+<section class="infos" id="infos">
+  <div><span class="ico">🚚</span><h3>Livraison</h3><p>4,90 € en France métropolitaine, offerte dès 49 € d'achat.</p></div>
+  <div><span class="ico">🔒</span><h3>Commande simple</h3><p>Vous validez votre panier, nous vous contactons pour confirmer et régler en toute sécurité.</p></div>
+  <div><span class="ico">↩️</span><h3>Satisfait ou remboursé</h3><p>14 jours pour changer d'avis, conformément au droit de rétractation.</p></div>
+  <div><span class="ico">⭐</span><h3>Produits sous licence</h3><p>Disney, Marvel, Haribo, KPop Demon Hunters : des produits officiels.</p></div>
+</section>
+
+<footer class="pied">
+  <a href="/" class="logo"><span class="logo-etoile">★</span>Pop<em>Héros</em></a>
+  <p>Jouets, déco et accessoires de vos héros préférés.</p>
+  <p class="petit">© 2026 Pop Héros · Les marques citées appartiennent à leurs propriétaires respectifs.</p>
+</footer>
+
+<!-- Fiche produit -->
+<div class="voile" id="fiche" role="dialog" aria-modal="true" aria-label="Fiche produit">
+  <div class="fond" data-fermer="#fiche"></div>
+  <div class="fiche">
+    <button class="fermer" data-fermer="#fiche" aria-label="Fermer">×</button>
+    <div id="fiche-contenu" class="fiche-grille"></div>
+  </div>
+</div>
+
+<!-- Panier -->
+<div class="voile" id="tiroir" role="dialog" aria-modal="true" aria-label="Panier">
+  <div class="fond" data-fermer="#tiroir"></div>
+  <aside class="tiroir">
+    <div class="tiroir-tete"><h2>Mon panier</h2><button class="fermer" data-fermer="#tiroir" aria-label="Fermer">×</button></div>
+    <div id="etape-panier">
+      <div id="lignes"></div>
+      <div id="recap" class="recap"></div>
+      <button class="btn btn-plein large" id="commander" hidden>Commander</button>
+    </div>
+    <div id="etape-form" hidden>
+      <button class="lien" id="retour">← Retour au panier</button>
+      <form name="commande" id="form-commande" method="POST" data-netlify="true" netlify-honeypot="piege" action="/merci.html">
+        <input type="hidden" name="form-name" value="commande">
+        <p hidden><label>Ne pas remplir <input name="piege"></label></p>
+        <textarea name="panier" id="champ-panier" hidden></textarea>
+        <input type="hidden" name="total" id="champ-total">
+        <label>Prénom et nom<input name="nom" required autocomplete="name"></label>
+        <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+        <label>Téléphone<input type="tel" name="telephone" required autocomplete="tel"></label>
+        <label>Adresse de livraison<textarea name="adresse" rows="3" required autocomplete="street-address"></textarea></label>
+        <label>Message (facultatif)<textarea name="message" rows="2" placeholder="Emballage cadeau, précision…"></textarea></label>
+        <p class="total-form">Total : <b id="total-form"></b></p>
+        <button type="submit" class="btn btn-plein large">Valider ma commande</button>
+        <p class="rassure">Aucun paiement en ligne : nous vous recontactons pour confirmer.</p>
+      </form>
+    </div>
+  </aside>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
