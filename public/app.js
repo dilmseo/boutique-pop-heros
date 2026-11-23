@@ -10,13 +10,16 @@ try { panier = JSON.parse(localStorage.getItem('panier-magique') || '[]'); } cat
 const sauver = () => { try { localStorage.setItem('panier-magique', JSON.stringify(panier)); } catch (e) {} };
 
 // ---------- Catalogue ----------
-let filtre = 'Tout';
+let filtre = 'Tout', univers = null;
+// univers (héros) : filtre transversal aux rayons, par le nom du produit
+const UNIVERS = { kpop: ['KPop Demon Hunters', /k-?pop|huntr/i], stitch: ['Stitch', /stitch/i], spiderman: ['Spider-Man', /spider/i], disney: ['Disney', /disney|minnie|mickey|stitch/i] };
 function rayons() {
   const r = ['Tout', ...new Set(PRODUITS.map(p => p.rayon))];
-  $('#filtres').innerHTML = r.map(x => `<button class="chip${x === filtre ? ' on' : ''}" data-rayon="${x}">${x}</button>`).join('');
+  $('#filtres').innerHTML = (univers ? `<button class="chip on chip-univers" data-univers-off>✦ ${UNIVERS[univers][0]} ✕</button>` : '') +
+    r.map(x => `<button class="chip${x === filtre && !univers ? ' on' : ''}" data-rayon="${x}">${x}</button>`).join('');
 }
 function grille() {
-  const liste = PRODUITS.filter(p => filtre === 'Tout' || p.rayon === filtre);
+  const liste = PRODUITS.filter(p => (filtre === 'Tout' || p.rayon === filtre) && (!univers || UNIVERS[univers][1].test(p.nom)));
   $('#grille').innerHTML = liste.map(p => `
     <article class="carte" data-id="${p.id}" tabindex="0">
       <div class="carte-img">
@@ -34,8 +37,9 @@ function grille() {
     </article>`).join('');
 }
 document.addEventListener('click', e => {
+  if (e.target.closest('[data-univers-off]')) { univers = null; history.replaceState(null, '', location.pathname + '#boutique'); rayons(); grille(); return; }
   const r = e.target.closest('[data-rayon]');
-  if (r) { filtre = r.dataset.rayon; rayons(); grille();
+  if (r) { filtre = r.dataset.rayon; univers = null; rayons(); grille();
     if (r.classList.contains('univ')) $('#boutique').scrollIntoView({ behavior: 'smooth' }); return; }
   const a = e.target.closest('[data-ajout]');
   if (a) { e.stopPropagation(); const p = PRODUITS.find(x => x.id === a.dataset.ajout);
@@ -214,5 +218,31 @@ rendrePanier();
   // filtre de rayon passé dans l'URL (?rayon=Jouets#boutique) depuis le pied de page ou une page produit
   const r = new URLSearchParams(location.search).get('rayon');
   if (r && document.querySelector('#grille') && PRODUITS.some(p => p.rayon === r)) { filtre = r; rayons(); grille(); }
+  const u = new URLSearchParams(location.search).get('univers');
+  if (u && UNIVERS[u] && document.querySelector('#grille')) { univers = u; rayons(); grille(); }
   document.querySelector('.pied .haut')?.addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+// ---------- Héros : vrais prix du catalogue + parallaxe à la souris ----------
+(function () {
+  document.querySelectorAll('[data-prix-de]').forEach(el => {
+    const p = PRODUITS.find(x => x.id === el.dataset.prixDe);
+    if (p) el.textContent = euros(p.prix); else el.closest('.h3-carte')?.remove();
+  });
+  const scene = document.querySelector('#h3-scene');
+  if (!scene || matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(hover: none)').matches) return;
+  const cartes = [...scene.querySelectorAll('[data-p]')];
+  let rx = 0, ry = 0, tx = 0, ty = 0, raf = 0;
+  const boucle = () => {
+    rx += (tx - rx) * .08; ry += (ty - ry) * .08;
+    cartes.forEach(c => c.style.setProperty('--px', (rx * c.dataset.p).toFixed(2) + 'px'));
+    cartes.forEach(c => c.style.setProperty('--py', (ry * c.dataset.p).toFixed(2) + 'px'));
+    scene.style.setProperty('--rx', (ry * -.25).toFixed(2) + 'deg'); scene.style.setProperty('--ry', (rx * .25).toFixed(2) + 'deg');
+    raf = Math.abs(tx - rx) + Math.abs(ty - ry) > .05 ? requestAnimationFrame(boucle) : 0;
+  };
+  document.querySelector('.hero3').addEventListener('pointermove', e => {
+    const b = scene.getBoundingClientRect();
+    tx = ((e.clientX - b.left) / b.width - .5) * 16; ty = ((e.clientY - b.top) / b.height - .5) * 16;
+    if (!raf) raf = requestAnimationFrame(boucle);
+  });
+  document.querySelector('.hero3').addEventListener('pointerleave', () => { tx = ty = 0; if (!raf) raf = requestAnimationFrame(boucle); });
 })();
