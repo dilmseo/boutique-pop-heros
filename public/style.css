@@ -601,3 +601,23 @@ select:focus,input:focus,textarea:focus{outline:2px solid var(--rose);border-col
   .h3-intro,.h3-univers,.h3-btns,.h3-atouts{justify-self:center;width:100%;max-width:560px}
   .hero3{gap:14px}
 }
+/* ==================================================================
+   Château illuminé + feux d'artifice (fond de l'accueil) — 23/11
+   ================================================================== */
+.p-accueil .entete .logo .magie{display:none}
+.h3-chateau{position:absolute;left:50%;bottom:0;translate:-50% 0;width:min(1000px,78%);height:auto;z-index:-1;pointer-events:none;
+  opacity:.62;filter:drop-shadow(0 0 40px rgba(255,62,165,.35));animation:chateau 6s ease-in-out infinite alternate}
+@keyframes chateau{to{filter:drop-shadow(0 0 70px rgba(255,210,63,.4))}}
+.h3-feux{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.h3-feux span{position:absolute;width:5px;height:5px;border-radius:50%;color:var(--c,#ffd23f);background:currentColor;opacity:0;
+  box-shadow:40px 0 0 currentColor,34.6px 20px 0 currentColor,20px 34.6px 0 currentColor,0 40px 0 currentColor,-20px 34.6px 0 currentColor,-34.6px 20px 0 currentColor,
+    -40px 0 0 currentColor,-34.6px -20px 0 currentColor,-20px -34.6px 0 currentColor,0 -40px 0 currentColor,20px -34.6px 0 currentColor,34.6px -20px 0 currentColor;
+  filter:drop-shadow(0 0 6px currentColor);animation:feu 4.5s ease-out infinite}
+.h3-feux span:nth-child(1){left:22%;top:14%;--c:#ffd23f}
+.h3-feux span:nth-child(2){left:58%;top:8%;--c:#ff7ac6;animation-delay:-1.2s}
+.h3-feux span:nth-child(3){left:82%;top:22%;--c:#7fd6ff;animation-delay:-2.4s}
+.h3-feux span:nth-child(4){left:40%;top:30%;--c:#c9a7ff;animation-delay:-3.3s}
+.h3-feux span:nth-child(5){left:8%;top:40%;--c:#fff6c4;animation-delay:-.6s}
+@keyframes feu{0%{opacity:0;transform:scale(.1)}12%{opacity:1}60%{opacity:.85;transform:scale(1.5)}80%,100%{opacity:0;transform:scale(1.7) translateY(14px)}}
+@media (max-width:900px){.h3-chateau{width:160%;opacity:.55}}
+@media (prefers-reduced-motion:reduce){.h3-chateau,.h3-feux span{animation:none}.h3-feux{display:none}}

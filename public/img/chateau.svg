@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600">
+  <defs>
+    <linearGradient id="pierre" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6d4fc4"/>
+      <stop offset=".55" stop-color="#3a2483"/>
+      <stop offset="1" stop-color="#1c1048"/>
+    </linearGradient>
+    <linearGradient id="toit" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7ac6"/>
+      <stop offset="1" stop-color="#7a3cc9"/>
+    </linearGradient>
+    <linearGradient id="colline" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1866"/>
+      <stop offset="1" stop-color="#140b2e"/>
+    </linearGradient>
+    <radialGradient id="halo" cx=".5" cy=".55" r=".5">
+      <stop offset="0" stop-color="#ffd23f" stop-opacity=".45"/>
+      <stop offset=".45" stop-color="#ff3ea5" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#ff3ea5" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lueur" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <g id="fen"><path d="M0 14V5a4 4 0 0 1 8 0v9z"/></g>
+  </defs>
+
+  <!-- halo lumineux derrière le château -->
+  <ellipse cx="600" cy="330" rx="430" ry="300" fill="url(#halo)"/>
+
+  <!-- château -->
+  <g fill="url(#pierre)" stroke="#ff9ad6" stroke-opacity=".35" stroke-width="1.5">
+    <!-- tours extérieures -->
+    <rect x="330" y="340" width="46" height="200"/>
+    <rect x="824" y="340" width="46" height="200"/>
+    <!-- remparts -->
+    <path d="M376 420h448v120H376z"/>
+    <path d="M376 420v-14h16v14h14v-14h16v14h14v-14h16v14h14v-14h16v14h14v-14h16v14 M676 420v-14h16v14h14v-14h16v14h14v-14h16v14h14v-14h16v14h14v-14h16v14" fill="none"/>
+    <!-- tours latérales -->
+    <rect x="420" y="270" width="54" height="270"/>
+    <rect x="726" y="270" width="54" height="270"/>
+    <!-- donjon -->
+    <rect x="500" y="300" width="200" height="240"/>
+    <rect x="530" y="230" width="44" height="90"/>
+    <rect x="626" y="230" width="44" height="90"/>
+    <!-- tour centrale -->
+    <rect x="566" y="150" width="68" height="170"/>
+    <!-- tourelle d'angle -->
+    <rect x="474" y="360" width="26" height="60"/>
+    <rect x="700" y="360" width="26" height="60"/>
+  </g>
+
+  <!-- toits pointus -->
+  <g fill="url(#toit)">
+    <path d="M322 340 353 262 384 340z"/>
+    <path d="M816 340 847 262 878 340z"/>
+    <path d="M412 270 447 168 482 270z"/>
+    <path d="M718 270 753 168 788 270z"/>
+    <path d="M524 230 552 160 580 230z"/>
+    <path d="M620 230 648 160 676 230z"/>
+    <path d="M556 150 600 30 644 150z"/>
+    <path d="M470 360 487 322 504 360z"/>
+    <path d="M696 360 713 322 730 360z"/>
+  </g>
+
+  <!-- drapeaux -->
+  <g stroke="#ffe9a8" stroke-width="2" fill="#ffd23f">
+    <path d="M600 30V8" fill="none"/><path d="M600 8l22 6-22 6z" stroke="none"/>
+    <path d="M447 168v-18" fill="none"/><path d="M447 150l16 5-16 5z" stroke="none"/>
+    <path d="M753 168v-18" fill="none"/><path d="M753 150l16 5-16 5z" stroke="none"/>
+  </g>
+
+  <!-- porte -->
+  <path d="M570 540v-60a30 30 0 0 1 60 0v60z" fill="#12082c" stroke="#ffd23f" stroke-opacity=".6" stroke-width="2"/>
+  <path d="M572 540v-58a28 28 0 0 1 56 0v58" fill="none" stroke="#ffd23f" stroke-opacity=".25" stroke-width="10" filter="url(#lueur)"/>
+
+  <!-- fenêtres allumées -->
+  <g fill="#ffd23f" filter="url(#lueur)">
+    <use href="#fen" x="596" y="180"/><use href="#fen" x="596" y="230"/>
+    <use href="#fen" x="548" y="260"/><use href="#fen" x="644" y="260"/>
+    <use href="#fen" x="443" y="300"/><use href="#fen" x="443" y="360"/><use href="#fen" x="443" y="430"/>
+    <use href="#fen" x="749" y="300"/><use href="#fen" x="749" y="360"/><use href="#fen" x="749" y="430"/>
+    <use href="#fen" x="349" y="380"/><use href="#fen" x="843" y="380"/>
+    <use href="#fen" x="526" y="350"/><use href="#fen" x="560" y="350"/><use href="#fen" x="632" y="350"/><use href="#fen" x="666" y="350"/>
+    <use href="#fen" x="526" y="410"/><use href="#fen" x="666" y="410"/>
+    <use href="#fen" x="410" y="460"/><use href="#fen" x="782" y="460"/>
+  </g>
+
+  <!-- colline -->
+  <path d="M0 600V540Q200 500 420 530T780 530 1200 520V600z" fill="url(#colline)"/>
+
+  <!-- guirlande lumineuse -->
+  <g fill="#fff6c4" filter="url(#lueur)">
+    <circle cx="380" cy="532" r="2.5"/><circle cx="420" cy="538" r="2.5"/><circle cx="460" cy="542" r="2.5"/><circle cx="500" cy="543" r="2.5"/>
+    <circle cx="540" cy="542" r="2.5"/><circle cx="660" cy="542" r="2.5"/><circle cx="700" cy="543" r="2.5"/><circle cx="740" cy="542" r="2.5"/>
+    <circle cx="780" cy="538" r="2.5"/><circle cx="820" cy="532" r="2.5"/>
+  </g>
+</svg>
