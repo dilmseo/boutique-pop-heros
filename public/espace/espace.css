@@ -1,0 +1,53 @@
+.tag-espace{font-weight:800;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--jaune);border:1px solid rgba(255,210,63,.4);border-radius:999px;padding:4px 10px}
+.petit-btn{padding:9px 16px;font-size:.88rem}
+.doux{color:var(--doux)}
+.connexion{position:relative;min-height:calc(100vh - 75px);display:grid;place-items:center;padding:24px 16px;overflow:hidden;isolation:isolate}
+.carte-connexion{width:min(400px,100%);background:var(--nuit2);border:1px solid var(--bord);border-radius:26px;padding:34px 28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 30px 80px -30px rgba(255,62,165,.5)}
+.carte-connexion .sur-titre{align-self:flex-start;margin:0}
+.carte-connexion h1{font-size:2.2rem}
+.carte-connexion p{color:var(--doux)}
+.erreur{color:#ff8aa8!important;font-weight:700}
+
+#tableau{padding:32px clamp(16px,4vw,48px) 60px;max-width:1400px;margin:0 auto}
+.tb-tete{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.tb-tete h1{font-size:clamp(1.8rem,3.5vw,2.6rem)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.kpi{position:relative;overflow:hidden;background:var(--carte);border:1px solid var(--bord);border-radius:var(--r);padding:20px 22px}
+.kpi::after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:var(--violet);filter:blur(50px);opacity:.35;right:-40px;top:-40px}
+.kpi span{display:block;color:var(--doux);font-weight:700;font-size:.88rem}
+.kpi b{font-family:Fredoka;font-size:clamp(1.6rem,3vw,2.3rem);display:block;margin-top:4px}
+.kpi.accent{background:linear-gradient(135deg,rgba(255,62,165,.3),rgba(139,92,246,.25));border-color:rgba(255,62,165,.45)}
+.kpi.accent::after{background:var(--rose)}
+.tb-grille{display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start}
+.colonne{display:flex;flex-direction:column;gap:20px}
+.bloc{background:var(--nuit2);border:1px solid var(--bord);border-radius:var(--r);padding:22px}
+.bloc h2{font-size:1.35rem;margin-bottom:6px}
+.bloc-tete{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.bloc-tete h2{margin:0}
+.chip small{opacity:.7;margin-left:4px}
+.commande{border:1px solid var(--bord);border-left:4px solid var(--bleu);border-radius:16px;padding:16px 18px;margin-bottom:12px;background:rgba(255,255,255,.02)}
+.st-nouvelle{border-left-color:var(--rose);background:rgba(255,62,165,.06)}
+.st-confirmee{border-left-color:var(--jaune)} .st-expediee{border-left-color:var(--bleu)} .st-livree{border-left-color:#4ade80} .st-annulee{opacity:.55;border-left-color:#888}
+.cmd-tete{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.cmd-tete b{display:block;font-size:1.05rem}
+.cmd-tete .doux{font-size:.85rem}
+.cmd-panier{font-family:inherit;white-space:pre-wrap;font-size:.9rem;background:rgba(0,0,0,.2);border-radius:10px;padding:10px 12px;margin:12px 0}
+.cmd-contact{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.88rem;color:var(--doux)}
+.cmd-contact a{color:var(--texte);font-weight:700}
+.cmd-statut{display:flex;align-items:center;gap:10px;margin-top:12px;font-weight:700;font-size:.85rem;color:var(--doux)}
+.vide-bloc{text-align:center;padding:50px 20px;color:var(--doux)}
+.vide-bloc div{font-size:3rem;margin-bottom:8px}
+.etapes{list-style:none;margin:14px 0}
+.etapes li{padding:8px 0;border-bottom:1px solid var(--bord)}
+.etapes label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-weight:600}
+.etapes input{width:20px;height:20px;accent-color:var(--rose);flex:none;margin-top:2px;padding:0}
+.etapes input:checked+span{text-decoration:line-through;color:var(--doux)}
+.encart-stripe{background:linear-gradient(135deg,rgba(99,91,255,.25),rgba(255,62,165,.15));border:1px solid rgba(99,91,255,.5);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.encart-stripe p{color:var(--doux);font-size:.9rem}
+.mini{font-size:.8rem!important}
+.mes-produits{list-style:none;margin-top:12px}
+.mes-produits li{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--bord);font-size:.88rem}
+.mes-produits img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:8px}
+.mes-produits b{color:var(--jaune);font-family:Fredoka}
+@media (max-width:1000px){.tb-grille{grid-template-columns:1fr}}
+@media (max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}.tag-espace{display:none}}

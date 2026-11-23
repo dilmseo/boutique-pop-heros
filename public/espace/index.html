@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace marchand — Magique Boutique</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="espace.css">
+</head>
+<body>
+<header class="entete">
+  <a href="/" class="logo"><span class="logo-etoile">★</span>Magique<em>Boutique</em></a>
+  <span class="tag-espace">Espace marchand</span>
+  <nav class="menu"><a href="/" target="_blank">Voir la boutique ↗</a></nav>
+  <button class="btn btn-contour petit-btn" id="deco" hidden>Se déconnecter</button>
+</header>
+
+<!-- Connexion -->
+<section id="connexion" class="connexion">
+  <div class="halo h1"></div><div class="halo h2"></div>
+  <form id="form-connexion" class="carte-connexion">
+    <span class="sur-titre">Espace marchand</span>
+    <h1>Bonjour 👋</h1>
+    <p>Entrez votre mot de passe pour voir vos commandes.</p>
+    <input type="password" id="mdp" placeholder="Mot de passe" autocomplete="current-password" required>
+    <button class="btn btn-plein large" type="submit">Se connecter</button>
+    <p class="erreur" id="erreur" hidden></p>
+  </form>
+</section>
+
+<!-- Tableau de bord -->
+<main id="tableau" hidden>
+  <div class="tb-tete">
+    <div><h1>Tableau de bord</h1><p class="doux" id="maj"></p></div>
+    <button class="btn btn-contour petit-btn" id="rafraichir">↻ Actualiser</button>
+  </div>
+
+  <section class="kpis">
+    <div class="kpi"><span>Chiffre d'affaires</span><b id="k-ca">—</b></div>
+    <div class="kpi"><span>Commandes</span><b id="k-nb">—</b></div>
+    <div class="kpi accent"><span>À traiter</span><b id="k-att">—</b></div>
+    <div class="kpi"><span>Panier moyen</span><b id="k-pm">—</b></div>
+  </section>
+
+  <div class="tb-grille">
+    <section class="bloc">
+      <div class="bloc-tete"><h2>Commandes</h2>
+        <div class="filtres" id="filtres-statut"></div></div>
+      <div id="liste-commandes"></div>
+    </section>
+
+    <aside class="colonne">
+      <section class="bloc">
+        <h2>Lancer ma boutique</h2>
+        <p class="doux">Cochez au fur et à mesure.</p>
+        <ul class="etapes" id="etapes"></ul>
+        <div class="encart-stripe">
+          <b>💳 Pourquoi Stripe ?</b>
+          <p>Stripe permet à vos clients de payer par carte directement sur la boutique, et l'argent arrive sur votre compte bancaire. L'inscription est gratuite : Stripe prend une petite commission par vente.</p>
+          <a class="btn btn-plein large" href="https://dashboard.stripe.com/register" target="_blank" rel="noopener">Créer mon compte Stripe</a>
+          <p class="mini">Une fois le compte créé et activé (pièce d'identité + IBAN), prévenez Etienne par mail : il branche le paiement en ligne sur la boutique.</p>
+        </div>
+      </section>
+      <section class="bloc">
+        <h2>Mes produits</h2>
+        <p class="doux">Pour ajouter ou modifier un produit, envoyez la photo, le nom et le prix à Etienne par mail.</p>
+        <ul class="mes-produits" id="mes-produits"></ul>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<script src="/catalogue.js"></script>
+<script src="espace.js"></script>
+</body>
+</html>
