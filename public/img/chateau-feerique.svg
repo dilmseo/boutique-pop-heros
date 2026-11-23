@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="ciel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0628"/>
+      <stop offset=".45" stop-color="#2a1570"/>
+      <stop offset=".75" stop-color="#6a2aa0"/>
+      <stop offset="1" stop-color="#d0569e"/>
+    </linearGradient>
+    <radialGradient id="lune" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#fffbe6"/>
+      <stop offset=".7" stop-color="#ffeeb0"/>
+      <stop offset="1" stop-color="#ffd87a"/>
+    </radialGradient>
+    <radialGradient id="haloLune" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#fff2c0" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#fff2c0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx=".5" cy=".6" r=".5">
+      <stop offset="0" stop-color="#ffd9f2" stop-opacity=".75"/>
+      <stop offset=".4" stop-color="#ff7ac6" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#ff7ac6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mur" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbe9ff"/>
+      <stop offset=".5" stop-color="#d9b8f5"/>
+      <stop offset="1" stop-color="#8f6fd6"/>
+    </linearGradient>
+    <linearGradient id="murOmbre" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfa8f0"/>
+      <stop offset="1" stop-color="#6a4bb8"/>
+    </linearGradient>
+    <linearGradient id="toit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fd6ff"/>
+      <stop offset=".6" stop-color="#4a7cf0"/>
+      <stop offset="1" stop-color="#3b3fb8"/>
+    </linearGradient>
+    <linearGradient id="toitRose" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb3e0"/>
+      <stop offset="1" stop-color="#c2378f"/>
+    </linearGradient>
+    <linearGradient id="mont1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4b2a8f"/>
+      <stop offset="1" stop-color="#2a1660"/>
+    </linearGradient>
+    <linearGradient id="mont2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2c1866"/>
+      <stop offset="1" stop-color="#140b2e"/>
+    </linearGradient>
+    <linearGradient id="brume" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffc6ec" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#ffc6ec" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#ffc6ec" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="lueur" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="flou"><feGaussianBlur stdDeviation="14"/></filter>
+    <path id="fen" d="M0 18V6a5 5 0 0 1 10 0v12z"/>
+  </defs>
+
+  <!-- ciel -->
+  <rect width="1600" height="900" fill="url(#ciel)"/>
+
+  <!-- lune -->
+  <circle cx="1330" cy="170" r="150" fill="url(#haloLune)"/>
+  <circle cx="1330" cy="170" r="58" fill="url(#lune)"/>
+  <circle cx="1310" cy="155" r="9" fill="#f5dc94" opacity=".5"/>
+  <circle cx="1348" cy="190" r="6" fill="#f5dc94" opacity=".45"/>
+
+  <!-- montagnes lointaines -->
+  <path d="M0 640 120 560 230 610 380 500 520 600 640 540 760 610 900 520 1040 600 1180 510 1320 590 1460 530 1600 600V900H0z" fill="url(#mont1)" opacity=".85"/>
+
+  <!-- halo derrière le château -->
+  <ellipse cx="1000" cy="520" rx="520" ry="360" fill="url(#halo)"/>
+
+  <!-- ===== château de conte de fées ===== -->
+  <g stroke="#fff" stroke-opacity=".35" stroke-width="1.2">
+    <!-- tours extérieures -->
+    <rect x="700" y="470" width="56" height="260" fill="url(#murOmbre)"/>
+    <rect x="1244" y="470" width="56" height="260" fill="url(#murOmbre)"/>
+    <!-- remparts -->
+    <rect x="756" y="560" width="488" height="170" fill="url(#mur)"/>
+    <path d="M756 560v-16h18v16h16v-16h18v16h16v-16h18v16h16v-16h18v16h16v-16h18v16 M1100 560v-16h18v16h16v-16h18v16h16v-16h18v16h16v-16h18v16h16v-16h18v16" fill="none" stroke="#fbe9ff" stroke-opacity=".9" stroke-width="3"/>
+    <!-- tours intermédiaires -->
+    <rect x="800" y="380" width="62" height="350" fill="url(#mur)"/>
+    <rect x="1138" y="380" width="62" height="350" fill="url(#mur)"/>
+    <!-- corps principal -->
+    <rect x="890" y="420" width="220" height="310" fill="url(#mur)"/>
+    <!-- tours du donjon -->
+    <rect x="905" y="320" width="46" height="130" fill="url(#murOmbre)"/>
+    <rect x="1049" y="320" width="46" height="130" fill="url(#murOmbre)"/>
+    <!-- grande tour centrale -->
+    <rect x="962" y="230" width="76" height="220" fill="url(#mur)"/>
+    <rect x="976" y="150" width="48" height="100" fill="url(#mur)"/>
+    <!-- tourelles en encorbellement -->
+    <rect x="862" y="470" width="28" height="70" fill="url(#murOmbre)"/>
+    <rect x="1110" y="470" width="28" height="70" fill="url(#murOmbre)"/>
+  </g>
+
+  <!-- balcons -->
+  <g fill="#fbe9ff" opacity=".9">
+    <rect x="956" y="226" width="88" height="8" rx="3"/>
+    <rect x="970" y="146" width="60" height="7" rx="3"/>
+    <rect x="796" y="376" width="70" height="7" rx="3"/>
+    <rect x="1134" y="376" width="70" height="7" rx="3"/>
+  </g>
+
+  <!-- toits coniques -->
+  <g>
+    <path d="M692 470 728 360 764 470z" fill="url(#toitRose)"/>
+    <path d="M1236 470 1272 360 1308 470z" fill="url(#toitRose)"/>
+    <path d="M792 380 831 230 870 380z" fill="url(#toit)"/>
+    <path d="M1130 380 1169 230 1208 380z" fill="url(#toit)"/>
+    <path d="M898 320 928 210 958 320z" fill="url(#toitRose)"/>
+    <path d="M1042 320 1072 210 1102 320z" fill="url(#toitRose)"/>
+    <path d="M966 150 1000 18 1034 150z" fill="url(#toit)"/>
+    <path d="M858 470 876 418 894 470z" fill="url(#toit)"/>
+    <path d="M1106 470 1124 418 1142 470z" fill="url(#toit)"/>
+  </g>
+
+  <!-- drapeaux -->
+  <g stroke="#ffe9a8" stroke-width="2.5" fill="#ffd23f">
+    <path d="M1000 18V-6" fill="none"/>
+    <path d="M831 230v-22" fill="none"/><path d="M831 208l20 6-20 6z" stroke="none" fill="#ff7ac6"/>
+    <path d="M1169 230v-22" fill="none"/><path d="M1169 208l20 6-20 6z" stroke="none" fill="#ff7ac6"/>
+    <path d="M928 210v-18" fill="none"/><path d="M928 192l16 5-16 5z" stroke="none"/>
+    <path d="M1072 210v-18" fill="none"/><path d="M1072 192l16 5-16 5z" stroke="none"/>
+  </g>
+  <circle cx="1000" cy="14" r="6" fill="#ffd23f" filter="url(#lueur)"/>
+
+  <!-- porte -->
+  <path d="M960 730v-80a40 40 0 0 1 80 0v80z" fill="#3a1d6e" stroke="#ffd23f" stroke-opacity=".8" stroke-width="3"/>
+  <path d="M966 730v-78a34 34 0 0 1 68 0v78" fill="#ffcf6b" opacity=".35" filter="url(#lueur)"/>
+
+  <!-- fenêtres allumées -->
+  <g fill="#ffd23f" filter="url(#lueur)">
+    <use href="#fen" x="995" y="170"/><use href="#fen" x="995" y="260"/><use href="#fen" x="995" y="320"/>
+    <use href="#fen" x="923" y="350"/><use href="#fen" x="1067" y="350"/>
+    <use href="#fen" x="826" y="410"/><use href="#fen" x="826" y="480"/><use href="#fen" x="826" y="560"/>
+    <use href="#fen" x="1164" y="410"/><use href="#fen" x="1164" y="480"/><use href="#fen" x="1164" y="560"/>
+    <use href="#fen" x="723" y="500"/><use href="#fen" x="1267" y="500"/>
+    <use href="#fen" x="920" y="470"/><use href="#fen" x="960" y="470"/><use href="#fen" x="1030" y="470"/><use href="#fen" x="1070" y="470"/>
+    <use href="#fen" x="920" y="560"/><use href="#fen" x="1070" y="560"/>
+    <use href="#fen" x="780" y="610"/><use href="#fen" x="1210" y="610"/>
+  </g>
+
+  <!-- brume magique -->
+  <rect x="0" y="650" width="1600" height="140" fill="url(#brume)"/>
+  <ellipse cx="1000" cy="735" rx="420" ry="40" fill="#ffc6ec" opacity=".35" filter="url(#flou)"/>
+
+  <!-- collines du premier plan -->
+  <path d="M0 900V760Q260 700 520 750T1000 740 1600 730V900z" fill="url(#mont2)"/>
+  <!-- sapins -->
+  <g fill="#120a2b">
+    <path d="M120 790l26-70 26 70z"/><path d="M160 800l22-58 22 58z"/><path d="M1420 780l28-76 28 76z"/><path d="M1470 790l22-60 22 60z"/><path d="M560 770l20-52 20 52z"/>
+  </g>
+  <!-- guirlande lumineuse -->
+  <g fill="#fff6c4" filter="url(#lueur)">
+    <circle cx="760" cy="742" r="3"/><circle cx="810" cy="748" r="3"/><circle cx="860" cy="752" r="3"/><circle cx="910" cy="754" r="3"/>
+    <circle cx="1090" cy="754" r="3"/><circle cx="1140" cy="752" r="3"/><circle cx="1190" cy="748" r="3"/><circle cx="1240" cy="742" r="3"/>
+  </g>
+</svg>
