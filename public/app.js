@@ -12,7 +12,7 @@ const sauver = () => { try { localStorage.setItem('panier-magique', JSON.stringi
 // ---------- Catalogue ----------
 let filtre = 'Tout', univers = null;
 // univers (héros) : filtre transversal aux rayons, par le nom du produit
-const UNIVERS = { kpop: ['KPop Demon Hunters', /k-?pop|huntr/i], stitch: ['Stitch', /stitch/i], spiderman: ['Spider-Man', /spider/i], disney: ['Disney', /disney|minnie|mickey|stitch/i] };
+const UNIVERS = { kpop: ['KPop Demon Hunters', /k-?pop|huntr/i], stitch: ['Stitch', /stitch/i], spiderman: ['Spider-Man', /spider/i], pokemon: ['Pokémon', /pok[ée]mon|pikachu/i],disney: ['Disney', /disney|minnie|mickey|stitch/i] };
 function rayons() {
   const r = ['Tout', ...new Set(PRODUITS.map(p => p.rayon))];
   $('#filtres').innerHTML = (univers ? `<button class="chip on chip-univers" data-univers-off>✦ ${UNIVERS[univers][0]} ✕</button>` : '') +

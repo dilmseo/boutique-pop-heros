@@ -605,9 +605,15 @@ select:focus,input:focus,textarea:focus{outline:2px solid var(--rose);border-col
    Château illuminé + feux d'artifice (fond de l'accueil) — 23/11
    ================================================================== */
 .p-accueil .entete .logo .magie{display:none}
-.h3-chateau{position:absolute;left:50%;bottom:0;translate:-50% 0;width:min(1000px,78%);height:auto;z-index:-1;pointer-events:none;
-  opacity:.62;filter:drop-shadow(0 0 40px rgba(255,62,165,.35));animation:chateau 6s ease-in-out infinite alternate}
-@keyframes chateau{to{filter:drop-shadow(0 0 70px rgba(255,210,63,.4))}}
+/* 23/11 soir : vraie photo de château au crépuscule (Neuschwanstein, CC0 Wikimedia Commons) en plein fond */
+.h3-chateau{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 30%;z-index:-3;pointer-events:none;
+  filter:saturate(1.08) brightness(.92);animation:chateau 26s ease-in-out infinite alternate}
+@keyframes chateau{from{transform:scale(1)}to{transform:scale(1.06)}}
+.hero3::before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(20,11,46,.88) 0%,rgba(20,11,46,.62) 38%,rgba(20,11,46,.18) 62%,rgba(20,11,46,.35) 100%),
+    linear-gradient(to bottom,rgba(20,11,46,.15) 0%,transparent 40%,rgba(20,11,46,.75) 100%)}
+.hero3 .h3-aurore span{opacity:.22}
+.hero3 .h3-aurore{z-index:-2;mix-blend-mode:screen}
 .h3-feux{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .h3-feux span{position:absolute;width:5px;height:5px;border-radius:50%;color:var(--c,#ffd23f);background:currentColor;opacity:0;
   box-shadow:40px 0 0 currentColor,34.6px 20px 0 currentColor,20px 34.6px 0 currentColor,0 40px 0 currentColor,-20px 34.6px 0 currentColor,-34.6px 20px 0 currentColor,
@@ -619,5 +625,6 @@ select:focus,input:focus,textarea:focus{outline:2px solid var(--rose);border-col
 .h3-feux span:nth-child(4){left:40%;top:30%;--c:#c9a7ff;animation-delay:-3.3s}
 .h3-feux span:nth-child(5){left:8%;top:40%;--c:#fff6c4;animation-delay:-.6s}
 @keyframes feu{0%{opacity:0;transform:scale(.1)}12%{opacity:1}60%{opacity:.85;transform:scale(1.5)}80%,100%{opacity:0;transform:scale(1.7) translateY(14px)}}
-@media (max-width:900px){.h3-chateau{width:160%;opacity:.55}}
+@media (max-width:900px){.h3-chateau{object-position:50% 20%}
+  .hero3::before{background:linear-gradient(to bottom,rgba(20,11,46,.55) 0%,rgba(20,11,46,.7) 45%,rgba(20,11,46,.9) 100%)}}
 @media (prefers-reduced-motion:reduce){.h3-chateau,.h3-feux span{animation:none}.h3-feux{display:none}}
