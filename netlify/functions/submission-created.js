@@ -11,6 +11,7 @@ exports.handler = async (event) => {
     id: payload.id, date: payload.created_at || new Date().toISOString(), statut: 'nouvelle',
     nom: d.nom || '', email: d.email || '', telephone: d.telephone || '', adresse: d.adresse || '',
     message: d.message || '', panier: d.panier || '', total,
+    ref: /^[a-z0-9-]{8,40}$/i.test(d.ref || '') ? d.ref : '', mode: d.mode === 'carte' ? 'carte' : 'contact',
   };
   await getStore('commandes').setJSON(commande.id, commande);
   return { statusCode: 200, body: 'ok' };

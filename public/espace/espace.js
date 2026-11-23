@@ -4,7 +4,7 @@ const echap = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<'
 const STATUTS = { 'nouvelle': '🆕 Nouvelle', 'confirmée': '✅ Confirmée', 'expédiée': '📦 Expédiée', 'livrée': '🏠 Livrée', 'annulée': '✖ Annulée' };
 const ETAPES = [
   ['stripe', "J'ai créé mon compte Stripe"],
-  ['stripe_active', "J'ai activé Stripe (identité + IBAN) et prévenu Etienne"],
+  ['stripe_active', "J'ai branché Stripe sur la boutique (clé collée ci-dessous)"],
   ['produits', "J'ai envoyé tous mes produits (photo, nom, prix)"],
   ['domaine', "J'ai choisi mon nom de domaine (ex. magique-boutique.fr)"],
 ];
@@ -55,7 +55,7 @@ function rendre() {
     <article class="commande st-${c.statut.normalize('NFD').replace(/[̀-ͯ]/g, '')}">
       <div class="cmd-tete">
         <div><b>${echap(c.nom)}</b><span class="doux">${new Date(c.date).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' })}</span></div>
-        <strong class="prix">${euros(c.total)}</strong>
+        <div class="cmd-droite"><strong class="prix">${euros(c.total)}</strong>${badgePaiement(c)}</div>
       </div>
       <pre class="cmd-panier">${echap(c.panier)}</pre>
       <div class="cmd-contact">
@@ -74,11 +74,60 @@ function rendre() {
   $('#etapes').innerHTML = ETAPES.map(([k, t]) => `
     <li><label><input type="checkbox" data-etape="${k}"${etapes[k] ? ' checked' : ''}><span>${t}</span></label></li>`).join('');
 
+  rendreStripe(donnees.stripe || {});
   $('#mes-produits').innerHTML = PRODUITS.map(p => `
     <li><img src="/img/${p.imgs[0]}.webp" alt=""><span>${echap(p.nom)}</span><b>${euros(p.prix)}</b></li>`).join('');
 }
 
+function badgePaiement(c) {
+  const p = c.paiement;
+  if (p?.statut === 'payée') return `<span class="pay pay-ok">💳 Payée ${euros(p.montant)}</span>`;
+  if (p?.statut === 'en attente') return '<span class="pay pay-att">⏳ Paiement en cours</span>';
+  if (p?.statut === 'expirée') return '<span class="pay pay-ko">✖ Paiement abandonné</span>';
+  return '<span class="pay">Règlement à convenir</span>';
+}
+function rendreStripe(s) {
+  $('#bloc-stripe').innerHTML = s.actif ? `
+    <div class="stripe-ok"><b>✅ Paiement par carte activé</b>
+      <p>Vos clients paient par carte sur la boutique ; l'argent arrive sur votre compte Stripe, puis sur votre compte bancaire.
+      ${s.mode === 'test' ? '<br><b>⚠️ Clé de TEST : aucun vrai paiement n\'est encaissé.</b>' : ''}</p>
+      <p class="mini">Clé se terminant par …${echap(s.fin)} · branchée le ${new Date(s.date).toLocaleDateString('fr-FR')}</p>
+      <a class="btn btn-contour large" href="https://dashboard.stripe.com/payments" target="_blank" rel="noopener">Voir mes paiements sur Stripe ↗</a>
+      <button class="lien suppr" id="stripe-retirer">Débrancher Stripe</button></div>` : `
+    <p class="doux">Pour que vos clients paient par carte directement sur la boutique (l'argent arrive sur votre compte bancaire). Inscription gratuite, Stripe prend une petite commission par vente.</p>
+    <ol class="pas">
+      <li><b>Créez votre compte</b> sur <a href="https://dashboard.stripe.com/register" target="_blank" rel="noopener">stripe.com</a> et activez-le (pièce d'identité + IBAN).</li>
+      <li>Dans Stripe, ouvrez <a href="https://dashboard.stripe.com/apikeys/create" target="_blank" rel="noopener"><b>Développeurs → Clés API → Créer une clé restreinte</b></a>.</li>
+      <li>Nommez-la « Magique Boutique », et à la ligne <b>Checkout Sessions</b> choisissez <b>Écriture</b>. Laissez le reste sur « Aucune », puis « Créer la clé ».</li>
+      <li>Copiez la clé (elle commence par <code>rk_live_</code>) et collez-la ici :</li>
+    </ol>
+    <form id="form-stripe" class="form-stripe">
+      <input id="cle-stripe" placeholder="rk_live_…" autocomplete="off" spellcheck="false" required>
+      <button class="btn btn-plein large" type="submit">Brancher Stripe</button>
+      <p class="erreur" id="stripe-erreur" hidden></p>
+    </form>
+    <p class="mini">🔒 La clé est vérifiée auprès de Stripe puis enregistrée chiffrée. Ne l'envoyez jamais par mail.</p>`;
+}
+
+document.addEventListener('submit', async e => {
+  if (e.target.id !== 'form-stripe') return;
+  e.preventDefault();
+  const btn = e.target.querySelector('button'), err = $('#stripe-erreur');
+  btn.disabled = true; btn.textContent = 'Vérification…'; err.hidden = true;
+  try {
+    const r = await fetch('/api/espace', { method: 'POST', headers: { 'x-mdp': mdp, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'stripe', cle: $('#cle-stripe').value }) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.erreur || 'Erreur');
+    donnees = await api(); rendre();
+    $('#stripe').scrollIntoView({ behavior: 'smooth' });
+  } catch (x) { err.textContent = x.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Brancher Stripe'; }
+});
+
 document.addEventListener('click', e => {
+  if (e.target.id === 'stripe-retirer' && confirm('Débrancher Stripe ? Vos clients ne pourront plus payer par carte.')) {
+    api({ action: 'stripe_retirer' }).then(charger).catch(() => alert('Impossible, réessayez.')); return;
+  }
   const b = e.target.closest('[data-filtre]');
   if (b) { filtre = b.dataset.filtre; rendre(); }
   const d = e.target.closest('[data-suppr]');

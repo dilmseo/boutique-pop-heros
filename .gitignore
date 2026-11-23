@@ -1,4 +1,12 @@
 # Suivi client : mails reçus, état, journaux — jamais publiés (dépôt public)
 suivi/
 node_modules/
+# générés à chaque déploiement par scripts/generer.mjs
+public/produits/
+public/blog/
+public/sitemap.xml
+public/robots.txt
 
+public/mentions-legales/
+public/cgv/
+public/confidentialite/

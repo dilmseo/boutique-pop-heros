@@ -52,3 +52,16 @@
 .mes-produits b{color:var(--jaune);font-family:Fredoka}
 @media (max-width:1000px){.tb-grille{grid-template-columns:1fr}}
 @media (max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}.tag-espace{display:none}}
+
+.cmd-droite{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.pay{font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--doux);white-space:nowrap}
+.pay-ok{background:rgba(74,222,128,.15);color:#86efac}
+.pay-att{background:rgba(255,210,63,.15);color:var(--jaune)}
+.pay-ko{background:rgba(255,138,168,.12);color:#ff8aa8}
+.pas{margin:14px 0 14px 20px;display:flex;flex-direction:column;gap:10px;font-size:.9rem;color:var(--doux)}
+.pas b{color:var(--texte)} .pas a{color:var(--rose2);text-decoration:underline}
+code{background:rgba(0,0,0,.3);padding:2px 6px;border-radius:6px;font-size:.85em}
+.form-stripe{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.form-stripe input{font-family:ui-monospace,monospace;font-size:.85rem}
+.stripe-ok{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.35);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.stripe-ok p{color:var(--doux);font-size:.9rem}

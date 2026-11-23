@@ -2,7 +2,8 @@
 const LIVRAISON = 4.90, FRANCO = 49;
 const euros = n => n.toFixed(2).replace('.', ',') + ' €';
 const $ = s => document.querySelector(s);
-const img = n => `img/${n}.webp`;
+const img = n => `/img/${n}.webp`;
+const lienProduit = id => `/produits/${id}/`;
 
 let panier = [];
 try { panier = JSON.parse(localStorage.getItem('panier-magique') || '[]'); } catch (e) { panier = []; }
@@ -24,7 +25,7 @@ function grille() {
       </div>
       <div class="carte-corps">
         <span class="rayon">${p.rayon}</span>
-        <h3>${p.nom}</h3>
+        <h3><a href="${lienProduit(p.id)}">${p.nom}</a></h3>
         <div class="carte-pied">
           <strong class="prix">${euros(p.prix)}</strong>
           <button class="btn-ajout" data-ajout="${p.id}" aria-label="Ajouter ${p.nom} au panier">+ Panier</button>
@@ -39,11 +40,18 @@ document.addEventListener('click', e => {
   const a = e.target.closest('[data-ajout]');
   if (a) { e.stopPropagation(); const p = PRODUITS.find(x => x.id === a.dataset.ajout);
     if (p.tailles || p.couleurs) ouvrirFiche(p.id); else ajouter(p.id); return; }
+  const pg = e.target.closest('[data-ajout-page]');
+  if (pg) { const zone = document.querySelector('#page-produit');
+    const opts = [...zone.querySelectorAll('[data-opt]')].map(s => s.value).join(' · ');
+    ajouter(pg.dataset.ajoutPage, opts, Math.max(1, parseInt(zone.querySelector('#page-qte')?.value) || 1)); return; }
+  const vg = e.target.closest('[data-vign-page]');
+  if (vg) { document.querySelector('#page-grande').src = img(vg.dataset.vignPage);
+    document.querySelectorAll('[data-vign-page]').forEach(v => v.classList.toggle('on', v === vg)); return; }
   const c = e.target.closest('.carte');
-  if (c) ouvrirFiche(c.dataset.id);
+  if (c && !e.target.closest('a')) location.href = lienProduit(c.dataset.id);
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.classList?.contains('carte')) ouvrirFiche(e.target.dataset.id);
+  if (e.key === 'Enter' && e.target.classList?.contains('carte')) location.href = lienProduit(e.target.dataset.id);
   if (e.key === 'Escape') { fermer('#fiche'); fermer('#tiroir'); }
 });
 
@@ -66,6 +74,7 @@ function ouvrirFiche(id) {
         <label class="choix">Quantité<input type="number" id="fiche-qte" min="1" max="20" value="1"></label></div>
       <button class="btn btn-plein" id="fiche-ajout">Ajouter au panier</button>
       <p class="rassure">🚚 Livraison offerte dès ${FRANCO} € · Retour sous 14 jours</p>
+      <a class="lien-fiche" href="${lienProduit(p.id)}">Voir la fiche complète →</a>
     </div>`;
   $('#fiche-contenu').querySelectorAll('[data-vign]').forEach(b => b.onclick = () => {
     $('#fiche-grande').src = img(b.dataset.vign);
@@ -127,20 +136,46 @@ $('#commander').onclick = () => {
   $('#etape-panier').hidden = true; $('#etape-form').hidden = false;
 };
 $('#retour').onclick = () => { $('#etape-panier').hidden = false; $('#etape-form').hidden = true; };
+// Paiement par carte : actif seulement quand le marchand a branché son compte Stripe dans son espace
+let carte = false;
+fetch('/api/paiement?etat=1').then(r => r.json()).then(j => {
+  carte = !!j.actif;
+  if (carte) {
+    $('#form-commande button[type=submit]').textContent = 'Payer par carte';
+    $('#rassure-form').textContent = '🔒 Paiement sécurisé par Stripe. Vous êtes redirigé vers la page de paiement.';
+  }
+}).catch(() => {});
+const libelleBouton = () => carte ? 'Payer par carte' : 'Valider ma commande';
 $('#form-commande').addEventListener('submit', async e => {
   e.preventDefault();
   const f = e.target, btn = f.querySelector('button[type=submit]');
-  btn.disabled = true; btn.textContent = 'Envoi…';
+  btn.disabled = true; btn.textContent = carte ? 'Redirection vers le paiement…' : 'Envoi…';
+  const ref = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)).slice(0, 36);
+  f.ref.value = ref; f.mode.value = carte ? 'carte' : 'contact';
   try {
     const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(new FormData(f)).toString() });
     if (!r.ok) throw new Error(r.status);
-    panier = []; sauver(); location.href = '/merci.html';
   } catch (err) {
-    btn.disabled = false; btn.textContent = 'Valider ma commande';
-    alert("L'envoi a échoué. Vérifiez votre connexion et réessayez.");
+    btn.disabled = false; btn.textContent = libelleBouton();
+    alert("L'envoi a échoué. Vérifiez votre connexion et réessayez."); return;
   }
+  if (carte) {
+    try {
+      const r = await fetch('/api/paiement', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref, email: f.email.value, panier }) });
+      const j = await r.json();
+      if (!j.url) throw new Error(j.erreur);
+      panier = []; sauver(); location.href = j.url; return;
+    } catch (err) {
+      // la commande est enregistrée : le marchand recontactera le client pour le règlement
+      panier = []; sauver(); location.href = '/merci.html?paiement=plus-tard'; return;
+    }
+  }
+  panier = []; sauver(); location.href = '/merci.html';
 });
+if (new URLSearchParams(location.search).get('paiement') === 'annule')
+  setTimeout(() => alert("Paiement annulé : votre carte n'a pas été débitée. Votre commande est notée, nous pouvons vous recontacter pour le règlement."), 300);
 
 // ---------- Panneaux ----------
 function ouvrir(s) { $(s).classList.add('ouvert'); document.body.classList.add('bloque'); }
@@ -150,4 +185,5 @@ function fermer(s) { $(s).classList.remove('ouvert');
 document.querySelectorAll('[data-fermer]').forEach(b => b.onclick = () => fermer(b.dataset.fermer));
 $('#btn-panier').onclick = () => ouvrir('#tiroir');
 
-rayons(); grille(); rendrePanier();
+if ($('#grille')) { rayons(); grille(); }
+rendrePanier();

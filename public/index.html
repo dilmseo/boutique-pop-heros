@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="canonical" href="https://boutique-pop-heros.netlify.app/">
 </head>
 <body>
 <div class="annonce">✨ Livraison offerte dès 49 € d'achat · Idées cadeaux de Noël 🎄</div>
@@ -17,9 +18,10 @@
 <header class="entete">
   <a href="/" class="logo"><span class="logo-etoile">★</span>Magique<em>Boutique</em></a>
   <nav class="menu">
-    <a href="#boutique">Boutique</a>
-    <a href="#univers">Univers</a>
-    <a href="#infos">Livraison</a>
+    <a href="/#boutique">Boutique</a>
+    <a href="/#univers">Univers</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#infos">Livraison</a>
   </nav>
   <button class="btn-panier" id="btn-panier" aria-label="Ouvrir le panier">
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -86,6 +88,11 @@
 <footer class="pied">
   <a href="/" class="logo"><span class="logo-etoile">★</span>Magique<em>Boutique</em></a>
   <p>Jouets, déco et accessoires de vos héros préférés.</p>
+  <div class="pied-liens">
+    <div><h4>Nos produits</h4><!--LIENS-PRODUITS--><ul><li><a href="/produits/guitare-kpop/">Guitare électrique lumineuse K-Pop Girls</a></li><li><a href="/produits/tshirt-huntrix/">T-shirt manches longues Huntr/x — KPop Demon Hunters</a></li><li><a href="/produits/lampe-tigre/">Lampe de chevet Derpy le tigre — KPop Demon Hunters</a></li><li><a href="/produits/plaid-kpop/">Plaid polaire corail KPop Demon Hunters</a></li><li><a href="/produits/horloge-spiderman/">Horloge murale Spider-Man</a></li><li><a href="/produits/bougie-haribo/">Bougie parfumée Haribo Tropical Fun 85 g</a></li><li><a href="/produits/jogging-stitch/">Ensemble jogging bébé Stitch</a></li><li><a href="/produits/collier-stitch/">Collier pour chien Stitch — Disney</a></li><li><a href="/produits/harnais-stitch/">Harnais + laisse Stitch — Disney</a></li><li><a href="/produits/dobble-kpop/">Jeu Dobble KPop Demon Hunters</a></li><li><a href="/produits/carnet-huntrix/">Carnet Huntr/x — KPop Demon Hunters</a></li><li><a href="/produits/bonnet-minnie/">Bonnet enfant Minnie / Mickey &amp; Minnie — Disney</a></li><li><a href="/produits/squishy-stitch/">Figurine squishy Stitch — Disney</a></li></ul><!--/LIENS-PRODUITS--></div>
+    <div><h4>Le blog</h4><!--LIENS-BLOG--><ul><li><a href="/blog/idees-cadeaux-kpop-demon-hunters/">Idées cadeaux KPop Demon Hunters : quoi offrir à un enfant fan de Huntr/x ?</a></li><li><a href="/blog/harnais-ou-collier-petit-chien/">Harnais ou collier pour un petit chien : comment choisir et bien mesurer</a></li><li><a href="/blog/guitare-jouet-enfant-bien-choisir/">Guitare jouet pour enfant : bien la choisir selon l'âge</a></li><li><a href="/blog/decorer-chambre-enfant-theme-heros/">Décorer une chambre d'enfant sur le thème de son héros, sans tout refaire</a></li><li><a href="/blog/">Tous les articles →</a></li></ul><!--/LIENS-BLOG--></div>
+  </div>
+  <p class="liens-legaux"><a href="/mentions-legales/">Mentions légales</a> · <a href="/cgv/">CGV</a> · <a href="/confidentialite/">Confidentialité</a></p>
   <p class="petit">© 2026 Magique Boutique · Les marques citées appartiennent à leurs propriétaires respectifs.</p>
 </footer>
 
@@ -115,20 +122,23 @@
         <p hidden><label>Ne pas remplir <input name="piege"></label></p>
         <textarea name="panier" id="champ-panier" hidden></textarea>
         <input type="hidden" name="total" id="champ-total">
+        <input type="hidden" name="ref">
+        <input type="hidden" name="mode" value="contact">
         <label>Prénom et nom<input name="nom" required autocomplete="name"></label>
         <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
         <label>Téléphone<input type="tel" name="telephone" required autocomplete="tel"></label>
         <label>Adresse de livraison<textarea name="adresse" rows="3" required autocomplete="street-address"></textarea></label>
         <label>Message (facultatif)<textarea name="message" rows="2" placeholder="Emballage cadeau, précision…"></textarea></label>
+        <label class="cgv"><input type="checkbox" name="cgv" value="acceptées" required><span>J'accepte les <a href="/cgv/" target="_blank">conditions générales de vente</a> et la <a href="/confidentialite/" target="_blank">politique de confidentialité</a>.</span></label>
         <p class="total-form">Total : <b id="total-form"></b></p>
         <button type="submit" class="btn btn-plein large">Valider ma commande</button>
-        <p class="rassure">Aucun paiement en ligne : nous vous recontactons pour confirmer.</p>
+        <p class="rassure" id="rassure-form">Nous vous recontactons pour confirmer la commande et le règlement.</p>
       </form>
     </div>
   </aside>
 </div>
 
-<script src="catalogue.js"></script>
-<script src="app.js"></script>
+<script src="/catalogue.js"></script>
+<script src="/app.js"></script>
 </body>
 </html>
