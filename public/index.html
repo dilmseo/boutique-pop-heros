@@ -13,20 +13,26 @@
 <link rel="canonical" href="https://boutique-pop-heros.netlify.app/">
 </head>
 <body>
-<div class="annonce">✨ Livraison offerte dès 49 € d'achat · Idées cadeaux de Noël 🎄</div>
+<div class="annonce" role="note"><div class="annonce-piste">
+  <span>✨ Livraison offerte dès 49 € d'achat</span><span>🎄 Idées cadeaux de Noël</span><span>↩️ 14 jours pour changer d'avis</span><span>⭐ Produits sous licence officielle</span>
+  <span aria-hidden="true">✨ Livraison offerte dès 49 € d'achat</span><span aria-hidden="true">🎄 Idées cadeaux de Noël</span><span aria-hidden="true">↩️ 14 jours pour changer d'avis</span><span aria-hidden="true">⭐ Produits sous licence officielle</span>
+</div></div>
 
 <header class="entete">
-  <a href="/" class="logo"><span class="logo-etoile">★</span><span class="magie">Magique<em>Boutique</em></span></a>
-  <nav class="menu">
-    <a href="/#boutique">Boutique</a>
-    <a href="/#univers">Univers</a>
-    <a href="/blog/">Blog</a>
-    <a href="/#infos">Livraison</a>
+  <a href="/" class="logo" aria-label="Magique Boutique, accueil"><span class="logo-etoile">★</span><span class="magie">Magique <em>Boutique</em></span></a>
+  <nav class="menu" id="menu" aria-label="Menu principal">
+    <a href="/#boutique" data-nav="boutique"><i>🛍️</i>Boutique</a>
+    <a href="/#univers" data-nav="univers"><i>🪄</i>Univers</a>
+    <a href="/blog/" data-nav="blog"><i>📖</i>Blog</a>
+    <a href="/#infos" data-nav="infos"><i>🚚</i>Livraison</a>
   </nav>
-  <button class="btn-panier" id="btn-panier" aria-label="Ouvrir le panier">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-    <span id="compteur" hidden>0</span>
-  </button>
+  <div class="entete-actions">
+    <button class="btn-panier" id="btn-panier" aria-label="Ouvrir le panier">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="lbl">Panier</span><span id="compteur" hidden>0</span>
+    </button>
+    <button class="btn-menu" id="btn-menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
 </header>
 
 <section class="heros">
@@ -54,6 +60,12 @@
   </div>
 </section>
 
+<div class="frise" aria-hidden="true"><div class="frise-piste">
+  <span>KPop Demon Hunters</span><b>✦</b><span>Stitch</span><b>✦</b><span>Spider-Man</span><b>✦</b><span>Minnie &amp; Mickey</span><b>✦</b><span>Haribo</span><b>✦</b><span>Huntr/x</span><b>✦</b>
+  <span>KPop Demon Hunters</span><b>✦</b><span>Stitch</span><b>✦</b><span>Spider-Man</span><b>✦</b><span>Minnie &amp; Mickey</span><b>✦</b><span>Haribo</span><b>✦</b><span>Huntr/x</span><b>✦</b>
+</div></div>
+
+
 <section class="univers" id="univers">
   <h2 class="titre">Choisissez votre univers</h2>
   <div class="univers-grille">
@@ -79,22 +91,45 @@
   <a href="#boutique" class="btn btn-plein">J'en profite</a>
 </section>
 
+<section class="accueil-blog" id="blog">
+  <div class="boutique-tete"><h2 class="titre">Idées cadeaux <span class="neon">&amp; conseils</span></h2><a class="btn btn-contour" href="/blog/">Tout le blog →</a></div>
+  <div class="cartes-blog"><!--BLOG-ACCUEIL--><a class="carte-blog" href="/blog/idees-cadeaux-kpop-demon-hunters/">
+      <div class="cb-img"><img src="/img/plaid-kpop.webp" alt="" loading="lazy" width="600" height="600"></div>
+      <div class="cb-corps"><span class="cb-meta"><span class="rayon">Idées cadeaux</span><span>2 min</span></span>
+        <h3>Idées cadeaux KPop Demon Hunters : quoi offrir à un enfant fan de Huntr/x ?</h3><p>Rumi, Mira, Zoey et Derpy le tigre ont conquis les cours de récré. Voici comment choisir un cadeau qui plaira vraiment, selon l'âge et le caractère de l'enfant.</p><span class="cb-lire">Lire l'article <i>→</i></span></div></a><a class="carte-blog" href="/blog/harnais-ou-collier-petit-chien/">
+      <div class="cb-img"><img src="/img/harnais-stitch-1.webp" alt="" loading="lazy" width="600" height="600"></div>
+      <div class="cb-corps"><span class="cb-meta"><span class="rayon">Animaux</span><span>2 min</span></span>
+        <h3>Harnais ou collier pour un petit chien : comment choisir et bien mesurer</h3><p>Pour un chihuahua, un yorkshire ou un jeune chiot, le choix entre collier et harnais compte plus qu'on ne le croit. Voici comment trancher et prendre les bonnes mesures.</p><span class="cb-lire">Lire l'article <i>→</i></span></div></a><a class="carte-blog" href="/blog/guitare-jouet-enfant-bien-choisir/">
+      <div class="cb-img"><img src="/img/guitare-3.webp" alt="" loading="lazy" width="600" height="600"></div>
+      <div class="cb-corps"><span class="cb-meta"><span class="rayon">Jouets</span><span>2 min</span></span>
+        <h3>Guitare jouet pour enfant : bien la choisir selon l'âge</h3><p>Sons, lumières, piles, taille, sangle : les points à vérifier pour qu'une guitare jouet plaise longtemps, sans casser les oreilles de toute la maison.</p><span class="cb-lire">Lire l'article <i>→</i></span></div></a><!--/BLOG-ACCUEIL--></div>
+</section>
+
 <section class="infos" id="infos">
-  <div><span class="ico">🚚</span><h3>Livraison</h3><p>4,90 € en France métropolitaine, offerte dès 49 € d'achat.</p></div>
-  <div><span class="ico">🔒</span><h3>Commande simple</h3><p>Vous validez votre panier, nous vous contactons pour confirmer et régler en toute sécurité.</p></div>
-  <div><span class="ico">↩️</span><h3>Satisfait ou remboursé</h3><p>14 jours pour changer d'avis, conformément au droit de rétractation.</p></div>
-  <div><span class="ico">⭐</span><h3>Produits sous licence</h3><p>Disney, Marvel, Haribo, KPop Demon Hunters : des produits officiels.</p></div>
+  <div><span class="ico"><i>🚚</i></span><h3>Livraison</h3><p>4,90 € en France métropolitaine, offerte dès 49 € d'achat.</p></div>
+  <div><span class="ico"><i>🔒</i></span><h3>Commande simple</h3><p>Vous validez votre panier, nous vous contactons pour confirmer et régler en toute sécurité.</p></div>
+  <div><span class="ico"><i>↩️</i></span><h3>Satisfait ou remboursé</h3><p>14 jours pour changer d'avis, conformément au droit de rétractation.</p></div>
+  <div><span class="ico"><i>⭐</i></span><h3>Produits sous licence</h3><p>Disney, Marvel, Haribo, KPop Demon Hunters : des produits officiels.</p></div>
 </section>
 
 <footer class="pied">
-  <a href="/" class="logo"><span class="logo-etoile">★</span><span class="magie">Magique<em>Boutique</em></span></a>
-  <p>Jouets, déco et accessoires de vos héros préférés.</p>
-  <div class="pied-liens">
-    <div><h4>Nos produits</h4><!--LIENS-PRODUITS--><ul><li><a href="/produits/guitare-kpop/">Guitare électrique lumineuse K-Pop Girls</a></li><li><a href="/produits/tshirt-huntrix/">T-shirt manches longues Huntr/x — KPop Demon Hunters</a></li><li><a href="/produits/lampe-tigre/">Lampe de chevet Derpy le tigre — KPop Demon Hunters</a></li><li><a href="/produits/plaid-kpop/">Plaid polaire corail KPop Demon Hunters</a></li><li><a href="/produits/horloge-spiderman/">Horloge murale Spider-Man</a></li><li><a href="/produits/bougie-haribo/">Bougie parfumée Haribo Tropical Fun 85 g</a></li><li><a href="/produits/jogging-stitch/">Ensemble jogging bébé Stitch</a></li><li><a href="/produits/collier-stitch/">Collier pour chien Stitch — Disney</a></li><li><a href="/produits/harnais-stitch/">Harnais + laisse Stitch — Disney</a></li><li><a href="/produits/dobble-kpop/">Jeu Dobble KPop Demon Hunters</a></li><li><a href="/produits/carnet-huntrix/">Carnet Huntr/x — KPop Demon Hunters</a></li><li><a href="/produits/bonnet-minnie/">Bonnet enfant Minnie / Mickey &amp; Minnie — Disney</a></li><li><a href="/produits/squishy-stitch/">Figurine squishy Stitch — Disney</a></li></ul><!--/LIENS-PRODUITS--></div>
-    <div><h4>Le blog</h4><!--LIENS-BLOG--><ul><li><a href="/blog/idees-cadeaux-kpop-demon-hunters/">Idées cadeaux KPop Demon Hunters : quoi offrir à un enfant fan de Huntr/x ?</a></li><li><a href="/blog/harnais-ou-collier-petit-chien/">Harnais ou collier pour un petit chien : comment choisir et bien mesurer</a></li><li><a href="/blog/guitare-jouet-enfant-bien-choisir/">Guitare jouet pour enfant : bien la choisir selon l'âge</a></li><li><a href="/blog/decorer-chambre-enfant-theme-heros/">Décorer une chambre d'enfant sur le thème de son héros, sans tout refaire</a></li><li><a href="/blog/">Tous les articles →</a></li></ul><!--/LIENS-BLOG--></div>
+  <svg class="pied-vague" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 C 240 90 480 0 720 30 S 1200 80 1440 20 V90 H0 Z"/></svg>
+  <div class="pied-ciel" aria-hidden="true"><i>✦</i><i>✧</i><i>✦</i><i>✧</i><i>✦</i><i>✧</i><i>✦</i></div>
+  <div class="pied-haut">
+    <div class="pied-marque">
+      <a href="/" class="logo"><span class="logo-etoile">★</span><span class="magie">Magique <em>Boutique</em></span></a>
+      <p>Jouets, déco et accessoires des héros préférés de vos enfants : KPop Demon Hunters, Stitch, Spider-Man, Disney…</p>
+      <ul class="pied-atouts"><li>🚚 Offerte dès 49 €</li><li>🔒 Paiement sécurisé</li><li>↩️ 14 jours</li></ul>
+    </div>
+    <div class="pied-col"><h4>La boutique</h4><!--LIENS-RAYONS--><ul><li><a href="/?rayon=Jouets#boutique">Jouets</a></li><li><a href="/?rayon=V%C3%AAtements#boutique">Vêtements</a></li><li><a href="/?rayon=D%C3%A9co%20chambre#boutique">Déco chambre</a></li><li><a href="/?rayon=Maison#boutique">Maison</a></li><li><a href="/?rayon=Animaux#boutique">Animaux</a></li><li><a href="/?rayon=Jeux#boutique">Jeux</a></li><li><a href="/?rayon=Papeterie#boutique">Papeterie</a></li><li><a class="pied-plus" href="/#boutique">Toute la boutique →</a></li></ul><!--/LIENS-RAYONS--></div>
+    <div class="pied-col"><h4>Le blog</h4><!--LIENS-BLOG--><ul><li><a href="/blog/idees-cadeaux-kpop-demon-hunters/">Idées cadeaux KPop Demon Hunters</a></li><li><a href="/blog/harnais-ou-collier-petit-chien/">Harnais ou collier pour un petit chien</a></li><li><a href="/blog/guitare-jouet-enfant-bien-choisir/">Guitare jouet pour enfant</a></li><li><a href="/blog/decorer-chambre-enfant-theme-heros/">Décorer une chambre d'enfant sur le thème de son héros, sans tout refaire</a></li><li><a class="pied-plus" href="/blog/">Tous les articles →</a></li></ul><!--/LIENS-BLOG--></div>
+    <div class="pied-col"><h4>Infos pratiques</h4><ul>
+      <li><a href="/#infos">Livraison</a></li><li><a href="/cgv/">Retours et rétractation</a></li>
+      <li><a href="/cgv/">Conditions générales de vente</a></li><li><a href="/mentions-legales/">Mentions légales</a></li>
+      <li><a href="/confidentialite/">Confidentialité</a></li></ul></div>
   </div>
-  <p class="liens-legaux"><a href="/mentions-legales/">Mentions légales</a> · <a href="/cgv/">CGV</a> · <a href="/confidentialite/">Confidentialité</a></p>
-  <p class="petit">© 2026 Magique Boutique · Les marques citées appartiennent à leurs propriétaires respectifs.</p>
+  <div class="pied-produits"><h4>Tous nos produits</h4><!--LIENS-PRODUITS--><div class="pied-puces"><a href="/produits/guitare-kpop/">Guitare électrique lumineuse K-Pop Girls</a><a href="/produits/tshirt-huntrix/">T-shirt manches longues Huntr/x</a><a href="/produits/lampe-tigre/">Lampe de chevet Derpy le tigre</a><a href="/produits/plaid-kpop/">Plaid polaire corail KPop Demon Hunters</a><a href="/produits/horloge-spiderman/">Horloge murale Spider-Man</a><a href="/produits/bougie-haribo/">Bougie parfumée Haribo Tropical Fun 85 g</a><a href="/produits/jogging-stitch/">Ensemble jogging bébé Stitch</a><a href="/produits/collier-stitch/">Collier pour chien Stitch</a><a href="/produits/harnais-stitch/">Harnais + laisse Stitch</a><a href="/produits/dobble-kpop/">Jeu Dobble KPop Demon Hunters</a><a href="/produits/carnet-huntrix/">Carnet Huntr/x</a><a href="/produits/bonnet-minnie/">Bonnet enfant Minnie / Mickey &amp; Minnie</a><a href="/produits/squishy-stitch/">Figurine squishy Stitch</a></div><!--/LIENS-PRODUITS--></div>
+  <div class="pied-bas"><span>© 2026 Magique Boutique</span><span>Les marques citées appartiennent à leurs propriétaires respectifs.</span><a href="#" class="haut" aria-label="Revenir en haut">↑</a></div>
 </footer>
 
 <!-- Fiche produit -->

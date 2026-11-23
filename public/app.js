@@ -187,3 +187,32 @@ $('#btn-panier').onclick = () => ouvrir('#tiroir');
 
 if ($('#grille')) { rayons(); grille(); }
 rendrePanier();
+
+// ---------- Navigation (refonte) ----------
+(function () {
+  const corps = document.body, bm = document.querySelector('#btn-menu'), menu = document.querySelector('#menu');
+  if (bm && menu) {
+    const basculer = (ouvert) => { corps.classList.toggle('menu-ouvert', ouvert); bm.setAttribute('aria-expanded', ouvert); bm.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu'); };
+    bm.addEventListener('click', () => basculer(!corps.classList.contains('menu-ouvert')));
+    menu.addEventListener('click', e => { if (e.target.closest('a')) basculer(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') basculer(false); });
+  }
+  // lien actif
+  const ch = location.pathname;
+  const actif = ch.startsWith('/blog') ? 'blog' : ch.startsWith('/produits') ? 'boutique' : null;
+  if (actif) document.querySelector(`[data-nav="${actif}"]`)?.classList.add('actif');
+  // en-tête compact au défilement + barre de lecture des articles
+  const ent = document.querySelector('.entete'), barre = document.querySelector('#lecture'), art = document.querySelector('.article-corps');
+  const auDefilement = () => {
+    ent?.classList.toggle('compact', scrollY > 40);
+    if (barre && art) {
+      const r = art.getBoundingClientRect(), total = r.height - innerHeight * .6;
+      barre.style.width = Math.min(100, Math.max(0, (-r.top + innerHeight * .2) / total * 100)) + '%';
+    }
+  };
+  addEventListener('scroll', auDefilement, { passive: true }); auDefilement();
+  // filtre de rayon passé dans l'URL (?rayon=Jouets#boutique) depuis le pied de page ou une page produit
+  const r = new URLSearchParams(location.search).get('rayon');
+  if (r && document.querySelector('#grille') && PRODUITS.some(p => p.rayon === r)) { filtre = r; rayons(); grille(); }
+  document.querySelector('.pied .haut')?.addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
