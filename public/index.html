@@ -34,12 +34,14 @@
     <a href="/#infos" data-nav="infos"><i>🚚</i>Livraison</a>
   </nav>
   <div class="entete-actions">
+    <button class="btn-musique" id="btn-musique" type="button" aria-pressed="false" aria-label="Mettre la musique"><span class="note">♪</span><span class="ondes" aria-hidden="true"><i></i><i></i><i></i></span></button>
     <button class="btn-panier" id="btn-panier" aria-label="Ouvrir le panier">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span class="lbl">Panier</span><span id="compteur" hidden>0</span>
     </button>
     <button class="btn-menu" id="btn-menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
+  <script src="/musique.js" defer></script>
 </header>
 
 <section class="hero3" id="accueil">
