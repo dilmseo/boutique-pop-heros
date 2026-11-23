@@ -25,6 +25,12 @@ export default async (req) => {
       await commandes.setJSON(b.id, c);
       return json({ ok: true });
     }
+    if (b.action === 'supprimer') {
+      const c = await commandes.get(b.id, { type: 'json' });
+      if (!c || c.statut !== 'annulée') return json({ erreur: 'Seule une commande annulée peut être supprimée' }, 400);
+      await commandes.delete(b.id);
+      return json({ ok: true });
+    }
     if (b.action === 'etape' && ETAPES.includes(b.etape)) {
       const e = (await reglages.get('etapes', { type: 'json' })) || {};
       e[b.etape] = b.fait ? new Date().toISOString() : null;

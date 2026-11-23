@@ -67,6 +67,7 @@ function rendre() {
       <label class="cmd-statut">Statut
         <select data-cmd="${echap(c.id)}">${Object.entries(STATUTS).map(([k, v]) => `<option value="${k}"${k === c.statut ? ' selected' : ''}>${v}</option>`).join('')}</select>
       </label>
+      ${c.statut === 'annulée' ? `<button class="lien suppr" data-suppr="${echap(c.id)}">🗑 Supprimer définitivement</button>` : ''}
     </article>`).join('')
     : `<div class="vide-bloc"><div>🛍️</div><p>${commandes.length ? 'Aucune commande avec ce statut.' : 'Pas encore de commande. Elles apparaîtront ici dès qu\'un client valide son panier.'}</p></div>`;
 
@@ -80,6 +81,10 @@ function rendre() {
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-filtre]');
   if (b) { filtre = b.dataset.filtre; rendre(); }
+  const d = e.target.closest('[data-suppr]');
+  if (d && confirm('Supprimer définitivement cette commande annulée ?')) {
+    api({ action: 'supprimer', id: d.dataset.suppr }).then(charger).catch(() => alert('Suppression impossible.'));
+  }
 });
 document.addEventListener('change', async e => {
   const s = e.target.closest('[data-cmd]');
