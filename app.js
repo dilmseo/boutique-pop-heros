@@ -25,7 +25,7 @@ const PRODUITS = [
     desc: "Bougie parfumée en verre au parfum fruité Tropical Fun (ananas, banane, fruits exotiques), dans sa boîte jaune Haribo. Une petite idée cadeau gourmande.",
     points: ['85 g', 'Verre décoratif', 'Parfum fruits tropicaux'] },
   { id: 'jogging-stitch', nom: 'Ensemble jogging bébé Stitch', rayon: 'Vêtements', prix: 19.90, badge: 'Bébé',
-    imgs: ['jogging-stitch'], tailles: ['6 mois', '12 mois', '18 mois', '24 mois'], couleurs: ['Bleu & beige', 'Turquoise & gris'],
+    imgs: ['jogging-bebe-stitch'], tailles: ['6 mois', '12 mois', '18 mois', '24 mois'], couleurs: ['Bleu & beige', 'Turquoise & gris'],
     desc: "Ensemble veste zippée + pantalon pour bébé, aux couleurs de Stitch. Molleton doux, poignets côtelés, zip pratique pour habiller facilement les tout-petits. Deux coloris au choix.",
     points: ['Veste + pantalon', 'Molleton doux', '2 coloris'] },
   { id: 'collier-stitch', nom: 'Collier pour chien Stitch — Disney', rayon: 'Animaux', prix: 12.90,

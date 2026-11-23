@@ -4,6 +4,7 @@
   --texte:#f6f2ff; --doux:#c9bdf0; --r:20px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{font-family:Nunito,system-ui,sans-serif;background:var(--nuit);color:var(--texte);line-height:1.55;overflow-x:hidden}
 body.bloque{overflow:hidden}
