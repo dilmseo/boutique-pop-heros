@@ -9,8 +9,8 @@
   const lire = () => { try { return localStorage.getItem('musique-magique'); } catch (e) { return null; } };
   const ecrire = v => { try { localStorage.setItem('musique-magique', v); } catch (e) {} };
 
-  let ctx = null, maitre = null, minuterie = 0, enCours = false, pas = 0, prochain = 0;
-  const VOLUME = 0.16, TEMPO = 0.42; // secondes par note
+  let ctx = null, maitre = null, mesure = null, minuterie = 0, enCours = false, pas = 0, prochain = 0;
+  const VOLUME = 0.9, TEMPO = 0.42; // secondes par note
 
   // Progression douce (Do maj7 – La m7 – Fa maj7 – Sol 6), arpèges de boîte à musique
   const ACCORDS = [
@@ -33,8 +33,11 @@
     const r = reverb();
     const echo = ctx.createDelay(1); echo.delayTime.value = TEMPO * 1.5;
     const retour = ctx.createGain(); retour.gain.value = 0.32;
-    maitre.connect(sec).connect(ctx.destination);
-    maitre.connect(r).connect(humide).connect(ctx.destination);
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 4;
+    mesure = ctx.createAnalyser(); mesure.fftSize = 2048;
+    comp.connect(mesure).connect(ctx.destination);
+    maitre.connect(sec).connect(comp);
+    maitre.connect(r).connect(humide).connect(comp);
     maitre.connect(echo); echo.connect(retour).connect(echo); retour.connect(r);
   }
 
@@ -56,7 +59,7 @@
       o.type = 'triangle'; o.frequency.value = hz(m - 12); o.detune.value = cents;
       fl.type = 'lowpass'; fl.frequency.value = 900;
       g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(0.028, t + 1.4);
+      g.gain.linearRampToValueAtTime(0.07, t + 1.4);
       g.gain.linearRampToValueAtTime(0.0001, t + duree + 0.8);
       o.connect(fl).connect(g).connect(maitre); o.start(t); o.stop(t + duree + 1);
     }));
@@ -66,8 +69,8 @@
     while (prochain < ctx.currentTime + 0.6) {
       const mesure = Math.floor(pas / 8), acc = ACCORDS[mesure % 4], i = pas % 8;
       if (i === 0) nappe(prochain, acc, TEMPO * 8);
-      if (!(i === 7 && mesure % 2)) clochette(prochain, hz(acc[MOTIF[i]] + 12), i === 0 ? 0.11 : 0.07 + Math.random() * 0.025);
-      if (Math.random() < 0.12) clochette(prochain + TEMPO / 2, hz(acc[MOTIF[(i + 3) % 8]] + 24), 0.03); // paillette
+      if (!(i === 7 && mesure % 2)) clochette(prochain, hz(acc[MOTIF[i]] + 12), i === 0 ? 0.42 : 0.28 + Math.random() * 0.08);
+      if (Math.random() < 0.12) clochette(prochain + TEMPO / 2, hz(acc[MOTIF[(i + 3) % 8]] + 24), 0.1); // paillette
       prochain += TEMPO; pas++;
     }
   }
@@ -124,7 +127,7 @@
     }
   }
 
-  window.musiqueEtat = () => (ctx ? ctx.state : 'aucun') + (enCours ? ' · joue' : '');
+  window.musiqueEtat = () => { let crete = 0; if (mesure) { const d = new Float32Array(mesure.fftSize); mesure.getFloatTimeDomainData(d); d.forEach(v => { if (Math.abs(v) > crete) crete = Math.abs(v); }); } return (ctx ? ctx.state : 'aucun') + (enCours ? ' · joue' : '') + ' · crête ' + crete.toFixed(2); };
 
   // silence quand l'onglet est caché
   document.addEventListener('visibilitychange', () => {
